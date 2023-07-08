@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://s687ww7jhmcm"]
+
+[ext_resource type="Script" path="res://scripts/Main.cs" id="1_dh4eo"]
+[ext_resource type="Texture2D" uid="uid://y2ik1obdit0o" path="res://assets/background.png" id="1_gjto1"]
+[ext_resource type="PackedScene" uid="uid://dycow1jhdjvgq" path="res://scenes/tentacle.tscn" id="2_owk7a"]
+[ext_resource type="PackedScene" uid="uid://gfgweclqnyiq" path="res://scenes/enemy-bomber.tscn" id="4_gftwi"]
+[ext_resource type="PackedScene" uid="uid://ejwoqgdbct3r" path="res://scenes/enemy-canoe.tscn" id="5_7t4w1"]
+[ext_resource type="PackedScene" uid="uid://d2m7w2g88ywrw" path="res://scenes/kraken.tscn" id="7_h4b3g"]
+
+[node name="main" type="Node" node_paths=PackedStringArray("spawnTimer", "tentacleCountLabel", "pointsAccumulatedLabel", "healthLabel", "leftSpawn", "rightSpawn")]
+script = ExtResource("1_dh4eo")
+spawnTimer = NodePath("enemy-spawn-timer")
+tentacleCountLabel = NodePath("tentacle-count")
+pointsAccumulatedLabel = NodePath("souls-count")
+healthLabel = NodePath("hp")
+tentacleScene = ExtResource("2_owk7a")
+enemyScenes = Array[PackedScene]([ExtResource("5_7t4w1"), ExtResource("4_gftwi")])
+leftSpawn = NodePath("left-spawn")
+rightSpawn = NodePath("right-spawn")
+
+[node name="enemy-spawn-timer" type="Timer" parent="."]
+autostart = true
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_gjto1")
+centered = false
+
+[node name="kraken" parent="." instance=ExtResource("7_h4b3g")]
+position = Vector2(480, 517)
+
+[node name="left-spawn" type="Marker2D" parent="."]
+position = Vector2(-64, 88)
+
+[node name="right-spawn" type="Marker2D" parent="."]
+position = Vector2(1024, 88)
+
+[node name="tentacle-count" type="Label" parent="."]
+modulate = Color(1, 0.411765, 1, 0.588235)
+offset_left = 4.0
+offset_top = 516.0
+offset_right = 96.0
+offset_bottom = 542.0
+theme_override_font_sizes/font_size = 15
+text = "Tentacles: 1"
+
+[node name="hp" type="Label" parent="."]
+modulate = Color(0.94902, 0, 0.109804, 0.588235)
+offset_left = 4.0
+offset_top = 500.0
+offset_right = 96.0
+offset_bottom = 526.0
+theme_override_font_sizes/font_size = 15
+text = "Health: 10"
+
+[node name="souls-count" type="Label" parent="."]
+modulate = Color(0.129412, 0, 0.133333, 0.784314)
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+text = "Souls: 0"

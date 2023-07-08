@@ -1,0 +1,17 @@
+C:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.csproj.AssemblyReference.cache
+C:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.AssemblyInfoInputs.cache
+C:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.AssemblyInfo.cs
+C:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.csproj.CoreCompileInputs.cache
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\bin\Debug\GMTK-2023.deps.json
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\bin\Debug\GMTK-2023.runtimeconfig.json
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\bin\Debug\GMTK-2023.dll
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\bin\Debug\GMTK-2023.pdb
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\bin\Debug\GodotSharp.dll
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.csproj.CopyComplete
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.dll
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\refint\GMTK-2023.dll
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.pdb
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\GMTK-2023.genruntimeconfig.cache
+c:\Users\rmarc\Documents\Godot\GMTK-2023\.godot\mono\temp\obj\Debug\ref\GMTK-2023.dll

@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://gfgweclqnyiq"]
+
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_unogh"]
+[ext_resource type="PackedScene" uid="uid://dq41w7gf8cjk7" path="res://scenes/bomb.tscn" id="2_axfh3"]
+[ext_resource type="Texture2D" uid="uid://bycpuc1r48a60" path="res://assets/enemy-bomber.png" id="2_qf0e7"]
+
+[sub_resource type="Animation" id="Animation_4mfof"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_jpkk6"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k3bm4"]
+_data = {
+"RESET": SubResource("Animation_4mfof"),
+"idle": SubResource("Animation_jpkk6")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
+size = Vector2(72, 32)
+
+[node name="enemy-bomber" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "bombDropTimer", "nextBombLabel")]
+position = Vector2(0, -8)
+script = ExtResource("1_unogh")
+speed = 0.35
+resistance = 3.0
+pointWorth = 2.0
+dropsBombs = true
+hitArea = NodePath("Area2D")
+sprite = NodePath("Sprite2D")
+bombScene = ExtResource("2_axfh3")
+bombDropTimer = NodePath("bomb-drop-timer")
+nextBombLabel = NodePath("Label")
+
+[node name="bomb-drop-timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_k3bm4")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_vsqab")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("2_qf0e7")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -44.0
+offset_top = -28.0
+offset_right = -4.0
+offset_bottom = -5.0

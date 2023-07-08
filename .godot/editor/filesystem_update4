@@ -1,0 +1,14 @@
+res://scripts/Main.cs
+res://scripts/TentacleAttack.cs
+res://scripts/Tentacle.cs
+res://scripts/Enemy.cs
+res://scenes/main.tscn
+res://scenes/tentacle-attack.tscn
+res://scenes/enemy-canoe.tscn
+res://scenes/tentacle.tscn
+res://scenes/enemy-bomber.tscn
+res://scenes/enemy-bomber-bomb.tscn
+res://scenes/kraken.tscn
+res://scripts/Bomb.cs
+res://scenes/bomb.tscn
+res://scenes/bomb-explosion.tscn

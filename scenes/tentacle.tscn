@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dycow1jhdjvgq"]
+
+[ext_resource type="Script" path="res://scripts/Tentacle.cs" id="1_ekuub"]
+[ext_resource type="Texture2D" uid="uid://betye0nky87mn" path="res://assets/tentacle-lunge.png" id="1_v6qkr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axy5w"]
+size = Vector2(4, 20)
+
+[node name="tentacle-attack" type="Node2D"]
+script = ExtResource("1_ekuub")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_axy5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 264)
+texture = ExtResource("1_v6qkr")

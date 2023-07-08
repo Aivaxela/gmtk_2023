@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "qqYePaRBGLYfNzs+knhCFw161hI0b5tjV/npOJ8Wj/2QIow0ATJkOp+tFWIxhqlzMmNlJ8lY8BwibEt8ROZRIg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rmarc\\Documents\\Godot\\GMTK-2023\\GMTK-2023.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rmarc\\.nuget\\packages\\godot.sourcegenerators\\4.1.0\\godot.sourcegenerators.4.1.0.nupkg.sha512",
+    "C:\\Users\\rmarc\\.nuget\\packages\\godotsharp\\4.1.0\\godotsharp.4.1.0.nupkg.sha512",
+    "C:\\Users\\rmarc\\.nuget\\packages\\godotsharpeditor\\4.1.0\\godotsharpeditor.4.1.0.nupkg.sha512",
+    "C:\\Users\\rmarc\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.14\\microsoft.netcore.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\rmarc\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.14\\microsoft.windowsdesktop.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\rmarc\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.14\\microsoft.aspnetcore.app.ref.6.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

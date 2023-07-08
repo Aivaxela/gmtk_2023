@@ -1,0 +1,112 @@
+[gd_scene load_steps=20 format=3 uid="uid://l5ycdwxdb1px"]
+
+[ext_resource type="Texture2D" uid="uid://tvm01sm05jdd" path="res://assets/bomb-explosion.png" id="1_rwrqf"]
+[ext_resource type="Texture2D" uid="uid://lbh3rbjmdpom" path="res://assets/bomb-explosion-particles.png" id="2_t63cd"]
+[ext_resource type="Texture2D" uid="uid://dm1f6try53sgq" path="res://assets/bomb-explosion-bubbles.png" id="3_dngbo"]
+
+[sub_resource type="Gradient" id="Gradient_qcxhw"]
+offsets = PackedFloat32Array(0, 0.196856, 0.834581, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.0627451, 0.0627451, 0.737255, 1, 1, 1, 0.764706, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5pehj"]
+gradient = SubResource("Gradient_qcxhw")
+
+[sub_resource type="Curve" id="Curve_037m6"]
+_data = [Vector2(0, 0.22547), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c32w5"]
+curve = SubResource("Curve_037m6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tpsru"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_c32w5")
+color_ramp = SubResource("GradientTexture1D_5pehj")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_la48k"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_ygtgv"]
+offsets = PackedFloat32Array(0, 0.253743, 0.687874, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.370802, 0.37337, 0.653299, 0.647059, 0.4, 0.0431373, 0.470588, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1o6by"]
+gradient = SubResource("Gradient_ygtgv")
+
+[sub_resource type="Curve" id="Curve_d0ftn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.745979, 0.68476), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dnpxy"]
+curve = SubResource("Curve_d0ftn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mycvk"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_dnpxy")
+color_ramp = SubResource("GradientTexture1D_1o6by")
+anim_offset_max = 1.0
+
+[sub_resource type="Gradient" id="Gradient_g57fy"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7ebgq"]
+gradient = SubResource("Gradient_g57fy")
+
+[sub_resource type="Curve" id="Curve_jd0kp"]
+max_value = 0.5
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.417537), 0.0, 0.0, 0, 0, Vector2(1, 0.0167015), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_skxpj"]
+curve = SubResource("Curve_jd0kp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_256ee"]
+emission_shape = 3
+emission_box_extents = Vector3(5, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 20.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 25.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_skxpj")
+color_ramp = SubResource("GradientTexture1D_7ebgq")
+
+[node name="bomb-explosion" type="GPUParticles2D"]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_tpsru")
+texture = ExtResource("1_rwrqf")
+lifetime = 0.5
+one_shot = true
+
+[node name="bomb-sparkles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_la48k")
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_mycvk")
+texture = ExtResource("2_t63cd")
+one_shot = true
+explosiveness = 0.8
+
+[node name="bomb-bubbles" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_256ee")
+texture = ExtResource("3_dngbo")
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
