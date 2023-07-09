@@ -28,10 +28,14 @@ public partial class Kraken : CharacterBody2D
             if (Input.IsActionPressed("move-left"))
             {
                 velocty.X = -speed;
+                GetNode<Sprite2D>("Sprite2D").FlipH = false;
+                GetNode<Sprite2D>("Sprite2D/eyes").FlipH = false;
             }
             else if (Input.IsActionPressed("move-right"))
             {
                 velocty.X = speed;
+                GetNode<Sprite2D>("Sprite2D").FlipH = true;
+                GetNode<Sprite2D>("Sprite2D/eyes").FlipH = true;
             }
             else
             {

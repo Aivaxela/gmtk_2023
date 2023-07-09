@@ -46,7 +46,12 @@ public partial class Torpedo : CharacterBody2D
         newTorpedoParticles.GetNode<GpuParticles2D>("bomb-sparkles").Emitting = true;
         newTorpedoParticles.GetNode<GpuParticles2D>("bomb-bubbles").Emitting = true;
 
-        main.krakenHP -= torpedoDamage;
+        if (!main.isInvulnerable)
+        {
+            main.isInvulnerable = true;
+            main.krakenHP -= torpedoDamage;
+            main.invulnerabilityTimer.Start();
+        }
         QueueFree();
     }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://s687ww7jhmcm"]
+[gd_scene load_steps=23 format=3 uid="uid://s687ww7jhmcm"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_dh4eo"]
 [ext_resource type="Texture2D" uid="uid://y2ik1obdit0o" path="res://assets/background.png" id="1_gjto1"]
@@ -15,6 +15,11 @@
 [ext_resource type="AudioStream" uid="uid://c33b0664k82vi" path="res://sfx/scream2.wav" id="10_ojyfp"]
 [ext_resource type="AudioStream" uid="uid://coeh37amjmyuh" path="res://sfx/scream3.wav" id="11_polor"]
 [ext_resource type="AudioStream" uid="uid://b0gequattv5ap" path="res://sfx/scream4.wav" id="12_sdt4f"]
+[ext_resource type="AudioStream" uid="uid://tq2fs2rp7502" path="res://bgm/Kraken Krunk.wav" id="13_v2sjp"]
+[ext_resource type="PackedScene" uid="uid://bwh27ndgydahc" path="res://scenes/seaweed.tscn" id="17_m2m0b"]
+[ext_resource type="PackedScene" uid="uid://bbh1pdjwrih0i" path="res://scenes/atmo-bubbles.tscn" id="18_yh15g"]
+[ext_resource type="PackedScene" uid="uid://ht5d02o1tb1t" path="res://scenes/bubble-geiser.tscn" id="19_h6b8c"]
+[ext_resource type="PackedScene" uid="uid://bbai3mo2asva4" path="res://scenes/atmo-fish.tscn" id="20_cyooh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xct4b"]
 size = Vector2(20, 58)
@@ -22,13 +27,15 @@ size = Vector2(20, 58)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gahlw"]
 size = Vector2(2070, 20)
 
-[node name="main" type="Node" node_paths=PackedStringArray("spawnTimer", "tentacleCountLabel", "pointsAccumulatedLabel", "soulsAccumulatedLabel", "healthLabel", "shieldReadyLabel", "leftSpawn", "rightSpawn", "levelEnd", "sfxPlayer")]
+[node name="main" type="Node" node_paths=PackedStringArray("spawnTimer", "invulnerabilityTimer", "tentacleCountLabel", "pointsAccumulatedLabel", "soulsAccumulatedLabel", "healthLabel", "levelLabel", "shieldReadyLabel", "leftSpawn", "rightSpawn", "levelEnd", "sfxPlayer")]
 script = ExtResource("1_dh4eo")
 spawnTimer = NodePath("enemy-spawn-timer")
+invulnerabilityTimer = NodePath("invulnerable-timer")
 tentacleCountLabel = NodePath("tentacle-count")
 pointsAccumulatedLabel = NodePath("kills-count")
 soulsAccumulatedLabel = NodePath("souls-count")
 healthLabel = NodePath("hp")
+levelLabel = NodePath("level-counter")
 shieldReadyLabel = NodePath("tentacle-shield-ready")
 tentacleScene = ExtResource("2_owk7a")
 enemyScenes = Array[PackedScene]([ExtResource("5_7t4w1"), ExtResource("4_gftwi"), ExtResource("5_w826t"), ExtResource("6_8w3hd"), ExtResource("7_t2n7w"), ExtResource("6_1oimm")])
@@ -36,22 +43,32 @@ enemyDeathSounds = Array[AudioStream]([ExtResource("9_v46qy"), ExtResource("10_o
 leftSpawn = NodePath("left-spawn")
 rightSpawn = NodePath("right-spawn")
 levelEnd = NodePath("level-end")
-sfxPlayer = NodePath("AudioStreamPlayer2D")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -5.0
+sfxPlayer = NodePath("sfx-player")
 
 [node name="enemy-spawn-timer" type="Timer" parent="."]
 autostart = true
 
+[node name="invulnerable-timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="sfx-player" type="AudioStreamPlayer2D" parent="."]
+volume_db = -2.0
+
+[node name="bgm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_v2sjp")
+volume_db = -5.0
+autoplay = true
+
 [node name="level-end" parent="." instance=ExtResource("7_oigp5")]
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="bg" type="Sprite2D" parent="."]
 texture = ExtResource("1_gjto1")
 centered = false
 
 [node name="kraken" parent="." instance=ExtResource("7_h4b3g")]
 position = Vector2(480, 517)
+speed = 50.0
 
 [node name="left-spawn" type="Marker2D" parent="."]
 position = Vector2(-64, 88)
@@ -60,50 +77,61 @@ position = Vector2(-64, 88)
 position = Vector2(1024, 88)
 
 [node name="tentacle-count" type="Label" parent="."]
-modulate = Color(1, 0.411765, 1, 0.588235)
-offset_left = 4.0
-offset_top = 516.0
-offset_right = 96.0
-offset_bottom = 542.0
+modulate = Color(0.584314, 0, 0.592157, 0.819608)
+offset_left = 860.0
+offset_top = 24.0
+offset_right = 952.0
+offset_bottom = 50.0
 theme_override_font_sizes/font_size = 15
 text = "Tentacles: 1"
+horizontal_alignment = 2
 
 [node name="hp" type="Label" parent="."]
-modulate = Color(0.94902, 0, 0.109804, 0.588235)
-offset_left = 4.0
-offset_top = 500.0
-offset_right = 96.0
-offset_bottom = 526.0
+modulate = Color(0.94902, 0, 0.109804, 0.933333)
+offset_left = 864.0
+offset_top = 4.0
+offset_right = 956.0
+offset_bottom = 30.0
 theme_override_font_sizes/font_size = 15
 text = "Health: 10"
+horizontal_alignment = 2
 
 [node name="tentacle-shield-ready" type="Label" parent="."]
 visible = false
-modulate = Color(0.333333, 0.45098, 0.960784, 0.588235)
-offset_left = 120.0
-offset_top = 516.0
-offset_right = 217.0
-offset_bottom = 542.0
+modulate = Color(0.141176, 0.188235, 0.67451, 0.956863)
+offset_left = 760.0
+offset_top = 4.0
+offset_right = 857.0
+offset_bottom = 30.0
 theme_override_font_sizes/font_size = 15
 text = "Shield Ready!"
 
 [node name="souls-count" type="Label" parent="."]
-modulate = Color(0.129412, 0, 0.133333, 0.784314)
+modulate = Color(0.129412, 0, 0.133333, 0.87451)
 offset_left = 4.0
-offset_top = 4.0
 offset_right = 96.0
-offset_bottom = 30.0
+offset_bottom = 26.0
 theme_override_font_sizes/font_size = 15
 text = "Souls: 0"
 
 [node name="kills-count" type="Label" parent="."]
 modulate = Color(0.129412, 0, 0.133333, 0.784314)
 offset_left = 4.0
-offset_top = 24.0
+offset_top = 16.0
 offset_right = 96.0
-offset_bottom = 50.0
+offset_bottom = 42.0
 theme_override_font_sizes/font_size = 15
 text = "Kills: 0"
+
+[node name="level-counter" type="Label" parent="."]
+modulate = Color(0.129412, 0, 0.133333, 0.784314)
+offset_left = 4.0
+offset_top = 32.0
+offset_right = 96.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 15
+text = "Level 1
+"
 
 [node name="boundaries" type="Node" parent="."]
 
@@ -132,3 +160,41 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/bottom-wall"]
 shape = SubResource("RectangleShape2D_gahlw")
+
+[node name="seaweeds" type="Node" parent="."]
+
+[node name="seaweed" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(924, 508)
+
+[node name="seaweed6" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(900, 516)
+
+[node name="seaweed8" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(860, 512)
+
+[node name="seaweed2" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(816, 540)
+
+[node name="seaweed3" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(84, 548)
+
+[node name="seaweed4" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(16, 508)
+
+[node name="seaweed5" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(128, 520)
+
+[node name="seaweed9" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(104, 516)
+
+[node name="seaweed10" parent="seaweeds" instance=ExtResource("17_m2m0b")]
+position = Vector2(32, 536)
+
+[node name="atmo-bubbles" parent="." instance=ExtResource("18_yh15g")]
+position = Vector2(476, 580)
+
+[node name="bubble-geiser" parent="." instance=ExtResource("19_h6b8c")]
+position = Vector2(222, 526)
+
+[node name="atmo-fish" parent="." instance=ExtResource("20_cyooh")]
+position = Vector2(480, 384)

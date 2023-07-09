@@ -12,8 +12,8 @@ public partial class LevelEnd : CanvasLayer
     [Export] Label tentacleAdditionCostLabel;
 
     int speedUpgradePointsNeeded = 5;
-    int healthUpgradePointsNeeded = 5;
-    int tentacleAdditionPointsNeeded = 15;
+    int healthUpgradePointsNeeded = 10;
+    int tentacleAdditionPointsNeeded = 30;
 
     Main main;
     Kraken kraken;
@@ -40,7 +40,6 @@ public partial class LevelEnd : CanvasLayer
     private void OnNextLevelButtonPressed()
     {
         main.currentLevel++;
-        // main.killsNeeded += 5;
         main.killsAccumulated = 0;
         main.spawnTimer.Start();
         main.levelEnded = false;
@@ -73,7 +72,7 @@ public partial class LevelEnd : CanvasLayer
         {
             main.soulsAccumulated -= tentacleAdditionPointsNeeded;
             main.tentacleCount++;
-            tentacleAdditionPointsNeeded += 15;
+            tentacleAdditionPointsNeeded += 20;
         }
     }
 }

@@ -3,11 +3,14 @@ using System;
 
 public partial class Main : Node
 {
+    [Export] public int currentLevel = 1;
     [Export] public Timer spawnTimer;
+    [Export] public Timer invulnerabilityTimer;
     [Export] Label tentacleCountLabel;
     [Export] Label pointsAccumulatedLabel;
     [Export] Label soulsAccumulatedLabel;
     [Export] Label healthLabel;
+    [Export] Label levelLabel;
     [Export] public Label shieldReadyLabel;
 
     [Export] PackedScene tentacleScene;
@@ -19,14 +22,14 @@ public partial class Main : Node
     [Export] public AudioStreamPlayer2D sfxPlayer;
 
     int spawnLoc;
-    public int tentacleCount = 2;
+    public int tentacleCount = 1;
     public float killsAccumulated = 0;
     public float soulsAccumulated = 0;
-    public float killsNeeded = 50;
+    public float killsNeeded = 5;
     public int krakenHP = 10;
-    public int currentLevel = 1;
     public bool levelEnded = false;
     public int speedBoostFromUpgrades = 0;
+    public bool isInvulnerable = false;
 
     int canoeSpawnThreshold;
     int bomberSpawnThreshold;
@@ -39,6 +42,7 @@ public partial class Main : Node
     public override void _Ready()
     {
         spawnTimer.Timeout += OnSpawnTimerTimeout;
+        invulnerabilityTimer.Timeout += OnInvulnerabilityTimerTimeout;
 
         levelEnd.Visible = false;
     }
@@ -61,6 +65,13 @@ public partial class Main : Node
         pointsAccumulatedLabel.Text = "Kills: " + killsAccumulated + " / " + killsNeeded;
         soulsAccumulatedLabel.Text = "Souls: " + soulsAccumulated;
         healthLabel.Text = "Health: " + krakenHP;
+        levelLabel.Text = "Level: " + currentLevel;
+
+        if (krakenHP <= 0)
+        {
+            ClearEnemies();
+            GetTree().ChangeSceneToFile("res://scenes/game-over.tscn");
+        }
     }
 
     private void OnSpawnTimerTimeout()
@@ -129,35 +140,48 @@ public partial class Main : Node
             levelEnded = true;
             spawnTimer.Stop();
 
-            foreach (Node enemy in GetTree().GetNodesInGroup("enemy"))
-            {
-                enemy.QueueFree();
-            }
+            ClearEnemies();
         }
+    }
+
+    private void ClearEnemies()
+    {
+        foreach (Node enemy in GetTree().GetNodesInGroup("enemy"))
+        {
+            if (enemy.IsInGroup("tentacle"))
+            {
+                tentacleCount++;
+            }
+            enemy.QueueFree();
+        }
+    }
+
+    private void OnInvulnerabilityTimerTimeout()
+    {
+        isInvulnerable = false;
     }
 
     private void SetEnemySpawnRates()
     {
         if (currentLevel == 1)
         {
+            spawnTimer.WaitTime = GD.RandRange(1, 3);
+            killsNeeded = 10;
+
             canoeSpawnThreshold = 100;
             bomberSpawnThreshold = -1;
             torpedoSpawnThreshold = -1;
             javelinSpawnThreshold = -1;
             titanicSpawnThreshold = -1;
             pizzaSpawnThreshold = -1;
-
-            canoeSpawnThreshold = 10;
-            bomberSpawnThreshold = 40;
-            torpedoSpawnThreshold = 55;
-            javelinSpawnThreshold = 90;
-            titanicSpawnThreshold = 95;
-            pizzaSpawnThreshold = 100;
         }
         if (currentLevel == 2)
         {
-            canoeSpawnThreshold = 70;
-            bomberSpawnThreshold = 95;
+            spawnTimer.WaitTime = GD.RandRange(1, 3);
+            killsNeeded = 20;
+
+            canoeSpawnThreshold = 30;
+            bomberSpawnThreshold = 97;
             torpedoSpawnThreshold = -1;
             javelinSpawnThreshold = -1;
             titanicSpawnThreshold = -1;
@@ -165,30 +189,103 @@ public partial class Main : Node
         }
         if (currentLevel == 3)
         {
+            spawnTimer.WaitTime = GD.RandRange(1, 3);
+            killsNeeded = 40;
+
             canoeSpawnThreshold = 40;
             bomberSpawnThreshold = 70;
-            torpedoSpawnThreshold = 95;
+            torpedoSpawnThreshold = 97;
             javelinSpawnThreshold = -1;
             titanicSpawnThreshold = -1;
             pizzaSpawnThreshold = 100;
         }
-        if (currentLevel == 5)
+        if (currentLevel == 4)
         {
+            spawnTimer.WaitTime = GD.RandRange(1, 2);
+            killsNeeded = 50;
+
             canoeSpawnThreshold = 20;
             bomberSpawnThreshold = 50;
             torpedoSpawnThreshold = 75;
-            javelinSpawnThreshold = 95;
+            javelinSpawnThreshold = 97;
             titanicSpawnThreshold = -1;
             pizzaSpawnThreshold = 100;
         }
         if (currentLevel == 5)
         {
+            spawnTimer.WaitTime = GD.RandRange(1, 2);
+            killsNeeded = 75;
+
             canoeSpawnThreshold = 10;
             bomberSpawnThreshold = 40;
             torpedoSpawnThreshold = 55;
-            javelinSpawnThreshold = 85;
-            titanicSpawnThreshold = 95;
+            javelinSpawnThreshold = 93;
+            titanicSpawnThreshold = 97;
             pizzaSpawnThreshold = 100;
+        }
+        if (currentLevel == 6)
+        {
+            spawnTimer.WaitTime = GD.RandRange(1, 2);
+            killsNeeded = 100;
+
+            canoeSpawnThreshold = 5;
+            bomberSpawnThreshold = 30;
+            torpedoSpawnThreshold = 50;
+            javelinSpawnThreshold = 90;
+            titanicSpawnThreshold = 97;
+            pizzaSpawnThreshold = 100;
+        }
+        if (currentLevel == 7)
+        {
+            spawnTimer.WaitTime = GD.RandRange(1, 2);
+            killsNeeded = 120;
+
+            canoeSpawnThreshold = 5;
+            bomberSpawnThreshold = 20;
+            torpedoSpawnThreshold = 50;
+            javelinSpawnThreshold = 85;
+            titanicSpawnThreshold = 97;
+            pizzaSpawnThreshold = 100;
+        }
+        if (currentLevel == 8)
+        {
+            spawnTimer.WaitTime = GD.RandRange(0.5, 3);
+            killsNeeded = 140;
+
+            canoeSpawnThreshold = 5;
+            bomberSpawnThreshold = 10;
+            torpedoSpawnThreshold = 40;
+            javelinSpawnThreshold = 82;
+            titanicSpawnThreshold = 97;
+            pizzaSpawnThreshold = 100;
+        }
+        if (currentLevel == 9)
+        {
+            spawnTimer.WaitTime = GD.RandRange(0.5, 3);
+            killsNeeded = 150;
+
+            canoeSpawnThreshold = 3;
+            bomberSpawnThreshold = 5;
+            torpedoSpawnThreshold = 35;
+            javelinSpawnThreshold = 93;
+            titanicSpawnThreshold = 80;
+            pizzaSpawnThreshold = 100;
+        }
+        if (currentLevel == 10)
+        {
+            spawnTimer.WaitTime = GD.RandRange(0.5, 2);
+            killsNeeded = 200;
+
+            canoeSpawnThreshold = 3;
+            bomberSpawnThreshold = 5;
+            torpedoSpawnThreshold = 30;
+            javelinSpawnThreshold = 70;
+            titanicSpawnThreshold = 97;
+            pizzaSpawnThreshold = 100;
+        }
+        if (currentLevel > 10)
+        {
+            GetTree().ChangeSceneToFile("res://scenes/win.tscn");
         }
     }
 }

@@ -20,19 +20,24 @@
             "related": ".xml"
           }
         }
-      },
-      "GodotSharpEditor/4.1.0": {
+      }
+    },
+    "net6.0/linux-x64": {
+      "Godot.SourceGenerators/4.1.0": {
         "type": "package",
-        "dependencies": {
-          "GodotSharp": "4.1.0"
-        },
+        "build": {
+          "build/Godot.SourceGenerators.props": {}
+        }
+      },
+      "GodotSharp/4.1.0": {
+        "type": "package",
         "compile": {
-          "lib/net6.0/GodotSharpEditor.dll": {
+          "lib/net6.0/GodotSharp.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/GodotSharpEditor.dll": {
+          "lib/net6.0/GodotSharp.dll": {
             "related": ".xml"
           }
         }
@@ -65,26 +70,12 @@
         "lib/net6.0/GodotSharp.dll",
         "lib/net6.0/GodotSharp.xml"
       ]
-    },
-    "GodotSharpEditor/4.1.0": {
-      "sha512": "u00jFpDFBSht/Oiy6czbKSfk9r4R6HWfqxdjlsP3eua/DF7psuWae9eswlJxsOx7IOTZRWn1dgbCtage3R1UNQ==",
-      "type": "package",
-      "path": "godotsharpeditor/4.1.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "godotsharpeditor.4.1.0.nupkg.sha512",
-        "godotsharpeditor.nuspec",
-        "lib/net6.0/GodotSharpEditor.dll",
-        "lib/net6.0/GodotSharpEditor.xml"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Godot.SourceGenerators >= 4.1.0",
-      "GodotSharp >= 4.1.0",
-      "GodotSharpEditor >= 4.1.0"
+      "GodotSharp >= 4.1.0"
     ]
   },
   "packageFolders": {
@@ -136,10 +127,6 @@
           "GodotSharp": {
             "target": "Package",
             "version": "[4.1.0, )"
-          },
-          "GodotSharpEditor": {
-            "target": "Package",
-            "version": "[4.1.0, )"
           }
         },
         "imports": [
@@ -159,7 +146,15 @@
             "version": "[6.0.14, 6.0.14]"
           },
           {
+            "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+            "version": "[6.0.14, 6.0.14]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.14, 6.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.linux-x64",
             "version": "[6.0.14, 6.0.14]"
           },
           {
@@ -173,6 +168,11 @@
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "linux-x64": {
+        "#import": []
       }
     }
   }

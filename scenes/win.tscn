@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://blocpxpqdum06"]
+
+[ext_resource type="Texture2D" uid="uid://bm01ir3onkgk0" path="res://assets/win-bg.png" id="2_27lah"]
+[ext_resource type="Texture2D" uid="uid://betye0nky87mn" path="res://assets/tentacle-lunge.png" id="3_sg4sd"]
+
+[node name="game-over" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_27lah")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-8, 316)
+rotation = -0.107175
+texture = ExtResource("3_sg4sd")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(524, 136)
+rotation = -1.72077
+texture = ExtResource("3_sg4sd")
+centered = false
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(744, 236)
+rotation = -0.337669
+texture = ExtResource("3_sg4sd")
+centered = false
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = 136.0
+offset_top = 420.0
+offset_right = 283.0
+offset_bottom = 446.0
+text = "Thanks for playing!"

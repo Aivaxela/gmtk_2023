@@ -1,8 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2m7w2g88ywrw"]
+[gd_scene load_steps=9 format=3 uid="uid://d2m7w2g88ywrw"]
 
 [ext_resource type="Script" path="res://scripts/Kraken.cs" id="1_fyl4c"]
 [ext_resource type="Texture2D" uid="uid://canfc63c4wwln" path="res://assets/baby-kraken.png" id="1_lgd23"]
+[ext_resource type="Texture2D" uid="uid://bm22fmglvjyov" path="res://assets/baby-kraken-eyes.png" id="3_8cnid"]
 [ext_resource type="Texture2D" uid="uid://ynwvaxgg5fgl" path="res://assets/kraken-shield.png" id="3_w04wl"]
+
+[sub_resource type="Animation" id="Animation_jv1uf"]
+resource_name = "blink"
+length = 5.0
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/eyes:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oiw56"]
+_data = {
+"blink": SubResource("Animation_jv1uf")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kup6n"]
 radius = 16.0
@@ -19,6 +43,12 @@ speed = 100.0
 tentacleShield = NodePath("tentacle-shield")
 tentacleShieldDurationTimer = NodePath("shield-duration")
 tentacleShieldCooldownTimer = NodePath("shield-cooldown")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "blink"
+libraries = {
+"": SubResource("AnimationLibrary_oiw56")
+}
 
 [node name="shield-duration" type="Timer" parent="."]
 wait_time = 3.0
@@ -37,6 +67,9 @@ shape = SubResource("CapsuleShape2D_kup6n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_lgd23")
+
+[node name="eyes" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("3_8cnid")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

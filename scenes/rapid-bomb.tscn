@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://cr5arsxp5tqoh"]
+
+[ext_resource type="Script" path="res://scripts/RapidBomb.cs" id="1_0tukf"]
+[ext_resource type="PackedScene" uid="uid://l5ycdwxdb1px" path="res://scenes/bomb-explosion.tscn" id="2_rgwje"]
+[ext_resource type="Texture2D" uid="uid://dm1f6try53sgq" path="res://assets/bomb-explosion-bubbles.png" id="3_6tlw4"]
+[ext_resource type="Texture2D" uid="uid://b2q55ex0otq4p" path="res://assets/bomb.png" id="4_c4khh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fmq7e"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_swpf0"]
+resource_name = "idle"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e26qp"]
+_data = {
+"idle": SubResource("Animation_swpf0")
+}
+
+[sub_resource type="Gradient" id="Gradient_piisv"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_062w2"]
+gradient = SubResource("Gradient_piisv")
+
+[sub_resource type="Curve" id="Curve_bbbbw"]
+max_value = 0.5
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.450939), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_iwnhh"]
+curve = SubResource("Curve_bbbbw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2faqf"]
+emission_shape = 1
+emission_sphere_radius = 5.0
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_iwnhh")
+color_ramp = SubResource("GradientTexture1D_062w2")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yi1qi"]
+radius = 8.0
+
+[node name="rapid-bomb" type="CharacterBody2D" node_paths=PackedStringArray("hitArea") groups=["enemy"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_0tukf")
+rapidBombDamage = 3
+hitArea = NodePath("Area2D")
+javelinParticlesScene = ExtResource("2_rgwje")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fmq7e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_e26qp")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-12, 0)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_2faqf")
+texture = ExtResource("3_6tlw4")
+lifetime = 0.6
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.956863, 0, 0, 1)
+texture = ExtResource("4_c4khh")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_yi1qi")

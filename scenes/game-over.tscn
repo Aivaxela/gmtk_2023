@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjty4ngi1r5e5"]
+
+[ext_resource type="Script" path="res://scripts/GameOver.cs" id="1_5mfvu"]
+[ext_resource type="Texture2D" uid="uid://dbo3m76s3e7wr" path="res://assets/game-over-bg.png" id="1_xgaxb"]
+
+[node name="game-over" type="Node" node_paths=PackedStringArray("restartButton")]
+script = ExtResource("1_5mfvu")
+restartButton = NodePath("Button")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xgaxb")
+centered = false
+
+[node name="Button" type="Button" parent="."]
+offset_left = 656.0
+offset_top = 396.0
+offset_right = 743.0
+offset_bottom = 427.0
+text = "Try again?"

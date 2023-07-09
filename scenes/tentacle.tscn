@@ -34,7 +34,7 @@ orbit_velocity_max = 0.0
 scale_curve = SubResource("CurveTexture_816v0")
 color_ramp = SubResource("GradientTexture1D_l218w")
 
-[node name="tentacle-attack" type="Node2D" node_paths=PackedStringArray("bubbleParticles")]
+[node name="tentacle-attack" type="Node2D" node_paths=PackedStringArray("bubbleParticles") groups=["enemy", "tentacle"]]
 script = ExtResource("1_ekuub")
 bubbleParticles = NodePath("GPUParticles2D")
 

@@ -45,7 +45,12 @@ public partial class Javelin : CharacterBody2D
         newTorpedoParticles.GetNode<GpuParticles2D>("bomb-sparkles").Emitting = true;
         newTorpedoParticles.GetNode<GpuParticles2D>("bomb-bubbles").Emitting = true;
 
-        main.krakenHP -= javelinDamage;
+        if (!main.isInvulnerable)
+        {
+            main.isInvulnerable = true;
+            main.krakenHP -= javelinDamage;
+            main.invulnerabilityTimer.Start();
+        }
         QueueFree();
     }
 

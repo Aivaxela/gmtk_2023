@@ -8,7 +8,7 @@ public partial class Tentacle : Node2D
     public float speedReductionFromEnemy = 0;
     public float pointsGiven = 0;
 
-    float baseSpeed = -5;
+    float baseSpeed = -500;
     Vector2 destination;
 
     Main main;
@@ -43,22 +43,12 @@ public partial class Tentacle : Node2D
             }
         }
 
-        GlobalPosition += new Vector2(0, baseSpeed - speedReductionFromEnemy);
+        GlobalPosition += new Vector2(0, baseSpeed - speedReductionFromEnemy) * (float)delta;
     }
 
     public void MoveTentacle(Vector2 newDestination)
     {
-        if (newDestination.Y < 40)
-        {
-            destination.Y = 40;
-        }
-        else if (newDestination.Y > 500)
-        {
-            destination.Y = 500;
-        }
-        else
-        {
-            destination = newDestination;
-        }
+        destination = newDestination;
+        destination.Y = 40;
     }
 }

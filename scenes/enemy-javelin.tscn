@@ -44,19 +44,18 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
 size = Vector2(88, 26)
 
-[node name="enemy-javelin" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "javelinDropTimer", "nextJavelinLabel") groups=["enemy"]]
+[node name="enemy-javelin" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "javelinDropTimer") groups=["enemy"]]
 z_index = 7
 position = Vector2(0, -12)
 script = ExtResource("1_nrwfs")
-speed = 0.4
-resistance = 4.2
+speed = 0.7
+resistance = 320.0
 pointWorth = 5.0
 throwsJavelins = true
 hitArea = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
 javelinScene = ExtResource("2_gx0wc")
 javelinDropTimer = NodePath("javelin-drop-timer")
-nextJavelinLabel = NodePath("Label")
 
 [node name="javelin-drop-timer" type="Timer" parent="."]
 wait_time = 4.0

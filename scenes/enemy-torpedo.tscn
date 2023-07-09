@@ -44,19 +44,18 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
 size = Vector2(72, 24)
 
-[node name="enemy-torpedo" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "torpedoDropTimer", "nextTorpedoLabel") groups=["enemy"]]
+[node name="enemy-torpedo" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "torpedoDropTimer") groups=["enemy"]]
 z_index = 8
 position = Vector2(0, -8)
 script = ExtResource("1_cm6wq")
-speed = 0.35
-resistance = 3.5
+speed = 1.2
+resistance = 250.0
 pointWorth = 3.0
 firesTorpedos = true
 hitArea = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
 torpedoScene = ExtResource("2_xjqia")
 torpedoDropTimer = NodePath("torpedo-drop-timer")
-nextTorpedoLabel = NodePath("Label")
 
 [node name="torpedo-drop-timer" type="Timer" parent="."]
 wait_time = 4.0

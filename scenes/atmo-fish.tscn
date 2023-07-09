@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbai3mo2asva4"]
+
+[ext_resource type="Texture2D" uid="uid://b3sy32byy18rc" path="res://assets/fish-sheet.png" id="1_vy7hk"]
+[ext_resource type="Texture2D" uid="uid://caa16k2a8xb8p" path="res://assets/fish-sheet-flipped.png" id="2_iy3c8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_g6jmg"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_yyrlq"]
+offsets = PackedFloat32Array(0, 0.940651, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_odjgr"]
+gradient = SubResource("Gradient_yyrlq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8qfy5"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 200, 1)
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_odjgr")
+anim_offset_max = 1.0
+
+[sub_resource type="Gradient" id="Gradient_fst4g"]
+offsets = PackedFloat32Array(0, 0.93855, 1)
+colors = PackedColorArray(1, 1, 1, 0.784314, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_blckx"]
+gradient = SubResource("Gradient_fst4g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bcrpo"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 200, 1)
+particle_flag_disable_z = true
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_blckx")
+anim_offset_max = 1.0
+
+[node name="atmo-fish" type="Node2D"]
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -270.0
+offset_right = 480.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fish-right" type="GPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.784314)
+material = SubResource("CanvasItemMaterial_g6jmg")
+position = Vector2(544, 0)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_8qfy5")
+texture = ExtResource("1_vy7hk")
+lifetime = 20.0
+preprocess = 20.0
+collision_base_size = 0.5
+
+[node name="fish-left" type="GPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.784314)
+material = SubResource("CanvasItemMaterial_g6jmg")
+position = Vector2(-544, 0)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_bcrpo")
+texture = ExtResource("2_iy3c8")
+lifetime = 20.0
+preprocess = 20.0
+collision_base_size = 0.5

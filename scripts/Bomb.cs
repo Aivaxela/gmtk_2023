@@ -36,7 +36,12 @@ public partial class Bomb : Node2D
         newBombParticles.GetNode<GpuParticles2D>("bomb-sparkles").Emitting = true;
         newBombParticles.GetNode<GpuParticles2D>("bomb-bubbles").Emitting = true;
 
-        main.krakenHP -= bombDamage;
+        if (!main.isInvulnerable)
+        {
+            main.isInvulnerable = true;
+            main.krakenHP -= bombDamage;
+            main.invulnerabilityTimer.Start();
+        }
         QueueFree();
     }
     private void OnHitAreaBodyEntered(Node2D _)

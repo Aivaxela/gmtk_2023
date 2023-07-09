@@ -1,19 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://fcx2jed688b5"]
+[gd_scene load_steps=5 format=3 uid="uid://fcx2jed688b5"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_3gqyy"]
 [ext_resource type="Texture2D" uid="uid://bcfq2gxtyiexi" path="res://assets/enemy-titanic.png" id="2_2whs1"]
+[ext_resource type="PackedScene" uid="uid://cr5arsxp5tqoh" path="res://scenes/rapid-bomb.tscn" id="2_8m8yw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
 size = Vector2(284, 30)
 
-[node name="enemy-titanic" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite") groups=["enemy"]]
+[node name="enemy-titanic" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "rapidBombDropTimer") groups=["enemy"]]
 z_index = 6
 script = ExtResource("1_3gqyy")
 speed = 0.2
-resistance = 4.9
-pointWorth = 15.0
+resistance = 440.0
+pointWorth = 10.0
+rapidFires = true
 hitArea = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
+rapidBombScene = ExtResource("2_8m8yw")
+rapidBombDropTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

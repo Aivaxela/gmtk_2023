@@ -9,18 +9,18 @@ public partial class Enemy : Node2D
     [Export] bool dropsBombs;
     [Export] bool firesTorpedos;
     [Export] bool throwsJavelins;
+    [Export] bool rapidFires;
 
     [Export] public Area2D hitArea;
     [Export] Sprite2D sprite;
     [Export] PackedScene bombScene;
     [Export] PackedScene torpedoScene;
     [Export] PackedScene javelinScene;
+    [Export] PackedScene rapidBombScene;
     [Export] Timer bombDropTimer;
     [Export] Timer torpedoDropTimer;
     [Export] Timer javelinDropTimer;
-    [Export] Label nextBombLabel;
-    [Export] Label nextTorpedoLabel;
-    [Export] Label nextJavelinLabel;
+    [Export] Timer rapidBombDropTimer;
 
     public bool leftSpawn = false;
     public bool rightSpawn = false;
@@ -39,14 +39,26 @@ public partial class Enemy : Node2D
         if (dropsBombs)
         {
             bombDropTimer.Timeout += OnBombDropTimerTimeout;
+            bombDropTimer.WaitTime = GD.RandRange(1, 2.5);
+            bombDropTimer.Start();
         }
         if (firesTorpedos)
         {
             torpedoDropTimer.Timeout += OnTorpedoDropTimerTimeout;
+            torpedoDropTimer.WaitTime = GD.RandRange(1, 3);
+            torpedoDropTimer.Start();
         }
         if (throwsJavelins)
         {
             javelinDropTimer.Timeout += OnJavelinDropTimerTimeout;
+            javelinDropTimer.WaitTime = GD.RandRange(0.1, 5);
+            javelinDropTimer.Start();
+        }
+        if (rapidFires)
+        {
+            rapidBombDropTimer.Timeout += OnRapidBombDropTimerTimeout;
+            rapidBombDropTimer.WaitTime = GD.RandRange(0.5, 0.5);
+            rapidBombDropTimer.Start();
         }
     }
 
@@ -69,19 +81,6 @@ public partial class Enemy : Node2D
         {
             QueueFree();
         }
-
-        if (dropsBombs)
-        {
-            nextBombLabel.Text = bombDropTimer.TimeLeft.ToString("0.0");
-        }
-        if (firesTorpedos)
-        {
-            nextTorpedoLabel.Text = torpedoDropTimer.TimeLeft.ToString("0.0");
-        }
-        if (throwsJavelins)
-        {
-            nextJavelinLabel.Text = javelinDropTimer.TimeLeft.ToString("0.0");
-        }
     }
 
     private void OnHitAreaAreaEntered(Area2D areaHit)
@@ -103,6 +102,7 @@ public partial class Enemy : Node2D
             dropsBombs = false;
             firesTorpedos = false;
             throwsJavelins = false;
+            rapidFires = false;
         }
     }
 
@@ -120,9 +120,9 @@ public partial class Enemy : Node2D
             Bomb newBomb = (Bomb)bombScene.Instantiate();
             GetParent().AddChild(newBomb);
             newBomb.GlobalPosition = GlobalPosition;
-            bombDropTimer.WaitTime = GD.RandRange(2.2, 10.2);
-        }
+            bombDropTimer.WaitTime = GD.RandRange(1, 2.5);
 
+        }
     }
 
     private void OnTorpedoDropTimerTimeout()
@@ -130,9 +130,10 @@ public partial class Enemy : Node2D
         if (firesTorpedos)
         {
             Torpedo newTorpedo = (Torpedo)torpedoScene.Instantiate();
-            GetParent().AddChild(newTorpedo);
             newTorpedo.GlobalPosition = GlobalPosition;
-            torpedoDropTimer.WaitTime = GD.RandRange(2.2, 10.2);
+            GetParent().AddChild(newTorpedo);
+            torpedoDropTimer.WaitTime = GD.RandRange(1, 3);
+
         }
     }
 
@@ -143,7 +144,18 @@ public partial class Enemy : Node2D
             Javelin newJavelin = (Javelin)javelinScene.Instantiate();
             newJavelin.GlobalPosition = GlobalPosition;
             GetParent().AddChild(newJavelin);
-            javelinDropTimer.WaitTime = GD.RandRange(2.2, 10.2);
+            javelinDropTimer.WaitTime = GD.RandRange(0.1, 5);
+        }
+    }
+
+    private void OnRapidBombDropTimerTimeout()
+    {
+        if (rapidFires)
+        {
+            RapidBomb newRapidBomb = (RapidBomb)rapidBombScene.Instantiate();
+            newRapidBomb.GlobalPosition = GlobalPosition;
+            GetParent().AddChild(newRapidBomb);
+            rapidBombDropTimer.WaitTime = GD.RandRange(0.5, 0.5);
         }
     }
 }
