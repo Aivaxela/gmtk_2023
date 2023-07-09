@@ -43,7 +43,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
 size = Vector2(52, 16)
 
-[node name="enemy-canoe" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite")]
+[node name="enemy-canoe" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite") groups=["enemy"]]
+z_index = 10
 script = ExtResource("1_wepa0")
 speed = 0.5
 resistance = 2.0

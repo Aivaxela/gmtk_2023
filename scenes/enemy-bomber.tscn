@@ -44,7 +44,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
 size = Vector2(72, 32)
 
-[node name="enemy-bomber" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "bombDropTimer", "nextBombLabel")]
+[node name="enemy-bomber" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "bombDropTimer", "nextBombLabel") groups=["enemy"]]
+z_index = 9
 position = Vector2(0, -8)
 script = ExtResource("1_unogh")
 speed = 0.35

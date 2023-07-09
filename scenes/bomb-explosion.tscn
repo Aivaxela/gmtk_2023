@@ -87,6 +87,7 @@ scale_curve = SubResource("CurveTexture_skxpj")
 color_ramp = SubResource("GradientTexture1D_7ebgq")
 
 [node name="bomb-explosion" type="GPUParticles2D"]
+scale = Vector2(2, 2)
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_tpsru")

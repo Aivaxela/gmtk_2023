@@ -1,0 +1,132 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcyjqh1p8egsh"]
+
+[ext_resource type="Script" path="res://scripts/LevelEnd.cs" id="1_3uxe8"]
+
+[node name="level-end" type="CanvasLayer" node_paths=PackedStringArray("nextLevelButton", "krakenSpeedUpgradeButton", "krakenHealthUpgradeButton", "tentacleAdditionUpgradeButton", "speedUpgradeCostLabel", "healthUpgradeCostLabel", "tentacleAdditionCostLabel")]
+script = ExtResource("1_3uxe8")
+nextLevelButton = NodePath("next-level")
+krakenSpeedUpgradeButton = NodePath("kraken-speed-upgrade")
+krakenHealthUpgradeButton = NodePath("kraken-health-upgrade")
+tentacleAdditionUpgradeButton = NodePath("tentacle-addition-upgrade")
+speedUpgradeCostLabel = NodePath("speed-upgrade-cost")
+healthUpgradeCostLabel = NodePath("health-upgrade-cost")
+tentacleAdditionCostLabel = NodePath("tentacle-upgrade-cost")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="level-complete" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -193.5
+offset_right = 193.5
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Level Complete!"
+
+[node name="next-level" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.5
+offset_top = -124.0
+offset_right = 39.5
+offset_bottom = -93.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
+[node name="kraken-speed-upgrade" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -129.0
+offset_right = 87.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Upgrade"
+
+[node name="kraken-speed" type="Label" parent="kraken-speed-upgrade"]
+layout_mode = 0
+offset_left = -120.0
+offset_top = 3.0
+offset_right = -13.0
+offset_bottom = 29.0
+text = "Kraken Speed"
+
+[node name="kraken-health-upgrade" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -78.0
+offset_right = 87.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Upgrade"
+
+[node name="kraken-health" type="Label" parent="kraken-health-upgrade"]
+layout_mode = 0
+offset_left = -112.0
+offset_top = 3.0
+offset_right = 5.0
+offset_bottom = 29.0
+text = "Add 5 Health"
+
+[node name="tentacle-addition-upgrade" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -30.0
+offset_right = 87.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Upgrade"
+
+[node name="tentacles" type="Label" parent="tentacle-addition-upgrade"]
+layout_mode = 0
+offset_left = -124.0
+offset_top = 3.0
+offset_right = -7.0
+offset_bottom = 29.0
+text = "Add 1 Tentacle"
+
+[node name="tentacle-upgrade-cost" type="Label" parent="."]
+offset_left = 576.0
+offset_top = 244.0
+offset_right = 693.0
+offset_bottom = 270.0
+text = "15"
+
+[node name="health-upgrade-cost" type="Label" parent="."]
+offset_left = 576.0
+offset_top = 196.0
+offset_right = 693.0
+offset_bottom = 222.0
+text = "15"
+
+[node name="speed-upgrade-cost" type="Label" parent="."]
+offset_left = 576.0
+offset_top = 144.0
+offset_right = 693.0
+offset_bottom = 170.0
+text = "15"

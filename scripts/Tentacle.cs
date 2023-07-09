@@ -3,6 +3,8 @@ using System;
 
 public partial class Tentacle : Node2D
 {
+    [Export] GpuParticles2D bubbleParticles;
+
     public float speedReductionFromEnemy = 0;
     public float pointsGiven = 0;
 
@@ -19,16 +21,26 @@ public partial class Tentacle : Node2D
 
     public override void _Process(double delta)
     {
-        if (GlobalPosition.Y <= destination.Y)
+        if (GlobalPosition.Y <= destination.Y || (GetChildCount() > 3))
         {
             baseSpeed = Mathf.Abs(baseSpeed);
+            bubbleParticles.Emitting = true;
         }
 
         if (GlobalPosition.Y > 560)
         {
             QueueFree();
             main.tentacleCount++;
-            main.pointsAccumulated += pointsGiven;
+            main.killsAccumulated += pointsGiven;
+            main.soulsAccumulated += pointsGiven;
+
+            for (int i = 0; i < GetChildCount(); i++)
+            {
+                if (GetChild(i) is Pizza)
+                {
+                    main.krakenHP++;
+                }
+            }
         }
 
         GlobalPosition += new Vector2(0, baseSpeed - speedReductionFromEnemy);

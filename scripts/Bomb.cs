@@ -3,7 +3,7 @@ using System;
 
 public partial class Bomb : Node2D
 {
-    [Export] float speed;
+    double speed;
     [Export] int bombDamage;
 
     [Export] Area2D hitArea;
@@ -17,11 +17,14 @@ public partial class Bomb : Node2D
         main = GetNode<Main>("/root/main");
 
         hitArea.AreaEntered += OnHitAreaAreaEntered;
+        hitArea.BodyEntered += OnHitAreaBodyEntered;
+
+        speed = GD.RandRange(0.5, 1.5);
     }
 
     public override void _Process(double delta)
     {
-        GlobalPosition += new Vector2(0, speed);
+        GlobalPosition += new Vector2(0, (float)speed);
     }
 
     private void OnHitAreaAreaEntered(Area2D _)
@@ -35,7 +38,16 @@ public partial class Bomb : Node2D
 
         main.krakenHP -= bombDamage;
         QueueFree();
+    }
+    private void OnHitAreaBodyEntered(Node2D _)
+    {
+        GpuParticles2D newBombParticles = (GpuParticles2D)bombParticlesScene.Instantiate();
+        GetParent().AddChild(newBombParticles);
+        newBombParticles.GlobalPosition = GlobalPosition;
+        newBombParticles.Emitting = true;
+        newBombParticles.GetNode<GpuParticles2D>("bomb-sparkles").Emitting = true;
+        newBombParticles.GetNode<GpuParticles2D>("bomb-bubbles").Emitting = true;
 
-        GD.Print("Kraken HP: " + main.krakenHP);
+        QueueFree();
     }
 }

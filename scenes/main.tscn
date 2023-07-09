@@ -1,25 +1,50 @@
-[gd_scene load_steps=7 format=3 uid="uid://s687ww7jhmcm"]
+[gd_scene load_steps=18 format=3 uid="uid://s687ww7jhmcm"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_dh4eo"]
 [ext_resource type="Texture2D" uid="uid://y2ik1obdit0o" path="res://assets/background.png" id="1_gjto1"]
 [ext_resource type="PackedScene" uid="uid://dycow1jhdjvgq" path="res://scenes/tentacle.tscn" id="2_owk7a"]
 [ext_resource type="PackedScene" uid="uid://gfgweclqnyiq" path="res://scenes/enemy-bomber.tscn" id="4_gftwi"]
 [ext_resource type="PackedScene" uid="uid://ejwoqgdbct3r" path="res://scenes/enemy-canoe.tscn" id="5_7t4w1"]
+[ext_resource type="PackedScene" uid="uid://clvy00dxxiqwm" path="res://scenes/enemy-torpedo.tscn" id="5_w826t"]
+[ext_resource type="PackedScene" uid="uid://dg8kyseq7dvsd" path="res://scenes/pizza.tscn" id="6_1oimm"]
+[ext_resource type="PackedScene" uid="uid://btylvkaqyrcci" path="res://scenes/enemy-javelin.tscn" id="6_8w3hd"]
 [ext_resource type="PackedScene" uid="uid://d2m7w2g88ywrw" path="res://scenes/kraken.tscn" id="7_h4b3g"]
+[ext_resource type="PackedScene" uid="uid://dcyjqh1p8egsh" path="res://scenes/level-end.tscn" id="7_oigp5"]
+[ext_resource type="PackedScene" uid="uid://fcx2jed688b5" path="res://scenes/enemy-titanic.tscn" id="7_t2n7w"]
+[ext_resource type="AudioStream" uid="uid://v0xa2s35xqt6" path="res://sfx/scream1.wav" id="9_v46qy"]
+[ext_resource type="AudioStream" uid="uid://c33b0664k82vi" path="res://sfx/scream2.wav" id="10_ojyfp"]
+[ext_resource type="AudioStream" uid="uid://coeh37amjmyuh" path="res://sfx/scream3.wav" id="11_polor"]
+[ext_resource type="AudioStream" uid="uid://b0gequattv5ap" path="res://sfx/scream4.wav" id="12_sdt4f"]
 
-[node name="main" type="Node" node_paths=PackedStringArray("spawnTimer", "tentacleCountLabel", "pointsAccumulatedLabel", "healthLabel", "leftSpawn", "rightSpawn")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xct4b"]
+size = Vector2(20, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gahlw"]
+size = Vector2(2070, 20)
+
+[node name="main" type="Node" node_paths=PackedStringArray("spawnTimer", "tentacleCountLabel", "pointsAccumulatedLabel", "soulsAccumulatedLabel", "healthLabel", "shieldReadyLabel", "leftSpawn", "rightSpawn", "levelEnd", "sfxPlayer")]
 script = ExtResource("1_dh4eo")
 spawnTimer = NodePath("enemy-spawn-timer")
 tentacleCountLabel = NodePath("tentacle-count")
-pointsAccumulatedLabel = NodePath("souls-count")
+pointsAccumulatedLabel = NodePath("kills-count")
+soulsAccumulatedLabel = NodePath("souls-count")
 healthLabel = NodePath("hp")
+shieldReadyLabel = NodePath("tentacle-shield-ready")
 tentacleScene = ExtResource("2_owk7a")
-enemyScenes = Array[PackedScene]([ExtResource("5_7t4w1"), ExtResource("4_gftwi")])
+enemyScenes = Array[PackedScene]([ExtResource("5_7t4w1"), ExtResource("4_gftwi"), ExtResource("5_w826t"), ExtResource("6_8w3hd"), ExtResource("7_t2n7w"), ExtResource("6_1oimm")])
+enemyDeathSounds = Array[AudioStream]([ExtResource("9_v46qy"), ExtResource("10_ojyfp"), ExtResource("11_polor"), ExtResource("12_sdt4f")])
 leftSpawn = NodePath("left-spawn")
 rightSpawn = NodePath("right-spawn")
+levelEnd = NodePath("level-end")
+sfxPlayer = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
 
 [node name="enemy-spawn-timer" type="Timer" parent="."]
 autostart = true
+
+[node name="level-end" parent="." instance=ExtResource("7_oigp5")]
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("1_gjto1")
@@ -52,6 +77,16 @@ offset_bottom = 526.0
 theme_override_font_sizes/font_size = 15
 text = "Health: 10"
 
+[node name="tentacle-shield-ready" type="Label" parent="."]
+visible = false
+modulate = Color(0.333333, 0.45098, 0.960784, 0.588235)
+offset_left = 120.0
+offset_top = 516.0
+offset_right = 217.0
+offset_bottom = 542.0
+theme_override_font_sizes/font_size = 15
+text = "Shield Ready!"
+
 [node name="souls-count" type="Label" parent="."]
 modulate = Color(0.129412, 0, 0.133333, 0.784314)
 offset_left = 4.0
@@ -60,3 +95,40 @@ offset_right = 96.0
 offset_bottom = 30.0
 theme_override_font_sizes/font_size = 15
 text = "Souls: 0"
+
+[node name="kills-count" type="Label" parent="."]
+modulate = Color(0.129412, 0, 0.133333, 0.784314)
+offset_left = 4.0
+offset_top = 24.0
+offset_right = 96.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 15
+text = "Kills: 0"
+
+[node name="boundaries" type="Node" parent="."]
+
+[node name="left-wall" type="StaticBody2D" parent="boundaries"]
+position = Vector2(12, 532)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/left-wall"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_xct4b")
+
+[node name="right-wall" type="StaticBody2D" parent="boundaries"]
+position = Vector2(948, 532)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/right-wall"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_xct4b")
+
+[node name="bottom-wall" type="StaticBody2D" parent="boundaries"]
+position = Vector2(484, 632)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/bottom-wall"]
+shape = SubResource("RectangleShape2D_gahlw")

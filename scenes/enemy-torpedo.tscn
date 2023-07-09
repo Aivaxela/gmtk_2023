@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://clvy00dxxiqwm"]
+
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_cm6wq"]
+[ext_resource type="PackedScene" uid="uid://dycmcw3q6j0la" path="res://scenes/torpedo.tscn" id="2_xjqia"]
+[ext_resource type="Texture2D" uid="uid://rgft46y5f4pk" path="res://assets/enemy-torpedo.png" id="3_5fgaj"]
+
+[sub_resource type="Animation" id="Animation_4mfof"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_jpkk6"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k3bm4"]
+_data = {
+"RESET": SubResource("Animation_4mfof"),
+"idle": SubResource("Animation_jpkk6")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqab"]
+size = Vector2(72, 24)
+
+[node name="enemy-torpedo" type="Node2D" node_paths=PackedStringArray("hitArea", "sprite", "torpedoDropTimer", "nextTorpedoLabel") groups=["enemy"]]
+z_index = 8
+position = Vector2(0, -8)
+script = ExtResource("1_cm6wq")
+speed = 0.35
+resistance = 3.5
+pointWorth = 3.0
+firesTorpedos = true
+hitArea = NodePath("Area2D")
+sprite = NodePath("Sprite2D")
+torpedoScene = ExtResource("2_xjqia")
+torpedoDropTimer = NodePath("torpedo-drop-timer")
+nextTorpedoLabel = NodePath("Label")
+
+[node name="torpedo-drop-timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_k3bm4")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_vsqab")
+debug_color = Color(0.494118, 0.580392, 0.109804, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("3_5fgaj")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -44.0
+offset_top = -28.0
+offset_right = -4.0
+offset_bottom = -5.0
